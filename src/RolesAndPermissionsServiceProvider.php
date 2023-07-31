@@ -19,7 +19,7 @@ class RolesAndPermissionsServiceProvider extends PackageServiceProvider
             ->name('laravel-roles-and-permissions')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_laravel-roles-and-permissions_table')
             ->hasCommand(RolesAndPermissionsCommand::class);
+            ->hasMigration('add_role_to_users');
     }
 }
