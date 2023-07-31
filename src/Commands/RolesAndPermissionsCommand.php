@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Ahrengot\RolesAndPermissions\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class RolesAndPermissionsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-roles-and-permissions';
 
     public $description = 'My command';
 
