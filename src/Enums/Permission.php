@@ -4,15 +4,12 @@ namespace Ahrengot\RolesAndPermissions\Enums;
 
 use Ahrengot\RolesAndPermissions\Contracts\Describable;
 
-enum Permission: string implements Describable
+enum Permission implements Describable
 {
-    case AccessAdminPanel = 'admin_panel.access';
+    case AccessAdminPanel;
 
-    case CreateApiTokens = 'api_tokens.create';
+    case CreateApiTokens;
 
-    /**
-     * Returns a human-readable version of the permission
-     */
     public function description(): string
     {
         return match ($this) {
