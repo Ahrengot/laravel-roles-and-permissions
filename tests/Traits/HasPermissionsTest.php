@@ -1,7 +1,7 @@
 <?php
 
 use Ahrengot\RolesAndPermissions\Enums\UserRole;
-use Ahrengot\RolesAndPermissions\Models\Traits\HasPermissions;
+use Ahrengot\RolesAndPermissions\Traits\HasPermissions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
 

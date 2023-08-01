@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahrengot\RolesAndPermissions\Models\Traits;
+namespace Ahrengot\RolesAndPermissions\Traits;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
