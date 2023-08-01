@@ -27,7 +27,7 @@ it('registers user permissions as gates', function () {
 
     expect($user->can('go fish'))->toBeFalse();
 
-    $user->grantPermission('go fish');
+    $user->grantTemporaryPermission('go fish');
 
     expect($user->can('go fish'))->toBeTrue();
 });

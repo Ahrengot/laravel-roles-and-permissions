@@ -24,10 +24,10 @@ trait HasPermissions
     }
 
     /**
-     * Grants temporary permissions without saving to the database.
-     * This is really only used for testing policies
+     * Grants temporary permissions which is useful for
+     * testing authorization and policies
      */
-    public function grantPermission(string $permission): void
+    public function grantTemporaryPermission(string $permission): void
     {
         $this->temporaryPermissions[] = $permission;
     }
