@@ -10,16 +10,17 @@ return [
     | each role in your application.
     |
     */
-
-    /*UserRole::Admin->value => [
-        'permissions' => [
-            Permission::AccessAdminPanel->value,
-            Permission::CreateApiTokens->value,
+    'roles' => [
+        /*UserRole::Admin->value => [
+            'permissions' => [
+                Permission::AccessAdminPanel,
+                Permission::CreateApiTokens,
+            ],
         ],
+        UserRole::User->value => [
+            'permissions' => [
+                Permission::CreateApiTokens,
+            ],
+        ],*/
     ],
-    UserRole::User->value => [
-        'permissions' => [
-            Permission::CreateApiTokens->value,
-        ],
-    ],*/
 ];
