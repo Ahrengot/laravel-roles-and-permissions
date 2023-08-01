@@ -1,13 +1,19 @@
 <?php
 
-use Ahrengot\RolesAndPermissions\Enums\Permission;
-use Ahrengot\RolesAndPermissions\Enums\UserRole;
-
-// config for Ahrengot/RolesAndPermissions
 return [
-    UserRole::Admin->value => [
+    /*
+    |--------------------------------------------------------------------------
+    | Role and permissions map
+    |--------------------------------------------------------------------------
+    |
+    | This configures the permissions associated with
+    | each role in your application.
+    |
+    */
+
+    /*UserRole::Admin->value => [
         'permissions' => [
-            Permission::ViewAdminPanel->value,
+            Permission::AccessAdminPanel->value,
             Permission::CreateApiTokens->value,
         ],
     ],
@@ -15,5 +21,5 @@ return [
         'permissions' => [
             Permission::CreateApiTokens->value,
         ],
-    ],
+    ],*/
 ];
