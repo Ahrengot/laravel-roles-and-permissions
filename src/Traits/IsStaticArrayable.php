@@ -4,7 +4,7 @@ namespace Ahrengot\RolesAndPermissions\Traits;
 
 use Ahrengot\RolesAndPermissions\Contracts\Describable;
 
-trait HasStaticArray
+trait IsStaticArrayable
 {
     /**
      * Returns an associative array of keys and descriptions.

@@ -2,12 +2,12 @@
 
 use Ahrengot\RolesAndPermissions\Contracts\Describable;
 use Ahrengot\RolesAndPermissions\Contracts\StaticArrayable;
-use Ahrengot\RolesAndPermissions\Traits\HasStaticArray;
+use Ahrengot\RolesAndPermissions\Traits\IsStaticArrayable;
 
 it('converts enums to associative arrays', function () {
     enum ArrayableEnumTester: string implements Describable, StaticArrayable
     {
-        use HasStaticArray;
+        use IsStaticArrayable;
 
         case Foo = 'foo';
         case Bar = 'bar';
