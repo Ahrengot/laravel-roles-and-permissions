@@ -17,12 +17,12 @@ beforeAll(function () {
     }
 });
 
-it('provides a collection of permissions on the user model')
+it('provides a collection of permissions')
     ->expect(fn () => new User)
     ->permissions
     ->toBeInstanceOf(Collection::class);
 
-it('registers user permissions as gates', function () {
+it('registers permissions as gates', function () {
     $user = new User;
 
     expect($user->can('go fish'))->toBeFalse();
@@ -32,8 +32,8 @@ it('registers user permissions as gates', function () {
     expect($user->can('go fish'))->toBeTrue();
 });
 
-it('can overwrite default permissions', function () {
-    class ThingWithPermissions extends Authenticatable
+it('overwrites default permissions config', function () {
+    class ModelWithCustomPermissions extends Authenticatable
     {
         use HasPermissions;
 
@@ -43,7 +43,7 @@ it('can overwrite default permissions', function () {
         }
     }
 
-    expect(new ThingWithPermissions)
+    expect(new ModelWithCustomPermissions)
         ->permissions
         ->toEqual(
             collect(['foo', 'bar', 'baz'])
