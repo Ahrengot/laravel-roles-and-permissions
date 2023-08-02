@@ -15,13 +15,14 @@ use App\Permissions\Permission;
 */
 
 it('guards access to the admin panel', function (UserRole $role, bool $expectation) {
-    $user = new User(['role' => $role]);
+    $user = new User();
+    $user->role = $role;
 
     expect(
         $user->can(Permission::AccessAdminPanel)
     )->toBe($expectation);
 })->with([
-    [UserRole::Admin, true],
     [UserRole::User, false],
+    [UserRole::Admin, true],
 ]);
 
