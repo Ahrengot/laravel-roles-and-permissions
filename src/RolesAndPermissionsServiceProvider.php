@@ -2,7 +2,9 @@
 
 namespace Ahrengot\RolesAndPermissions;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -45,6 +47,8 @@ class RolesAndPermissionsServiceProvider extends PackageServiceProvider
         $this->publishes([
             $this->package->basePath('../resources/stubs/Tests/Feature/Permissions/UserPermissionsTest.php.stub') => base_path('tests/Feature/Permissions/UserPermissionsTest.php'),
         ], "{$this->package->shortName()}-tests");
+
+        $this->registerGates();
     }
 
     public function publishStubs(InstallCommand $command): void
@@ -55,5 +59,14 @@ class RolesAndPermissionsServiceProvider extends PackageServiceProvider
                 "{$this->package->shortName()}-tests",
             ],
         ], $command->getOutput());
+    }
+
+    private function registerGates()
+    {
+        Gate::before(function (Authenticatable $authenticatable, mixed $permission) {
+            if ($authenticatable->permissions->contains($permission)) {
+                return true;
+            }
+        });
     }
 }

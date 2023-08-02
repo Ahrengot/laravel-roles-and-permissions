@@ -1,11 +1,15 @@
 <?php
 
-use Ahrengot\RolesAndPermissions\Enums\UserRole;
 use Ahrengot\RolesAndPermissions\Traits\HasPermissions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
 
 beforeAll(function () {
+    enum UserRole: string
+    {
+        case User = 'user';
+    }
+
     class User extends Authenticatable
     {
         use HasPermissions;
@@ -17,12 +21,26 @@ beforeAll(function () {
     }
 });
 
+beforeEach(
+    fn () => config()->set('permissions.roles.'.UserRole::User->value, [])
+);
+
 it('provides a collection of permissions')
     ->expect(fn () => new User)
     ->permissions
     ->toBeInstanceOf(Collection::class);
 
-it('registers permissions as gates', function () {
+it('registers configured permissions as gates', function () {
+    expect((new User)->can('go fish'))->toBeFalse();
+
+    config()->set('permissions.roles.'.UserRole::User->value, [
+        'go fish',
+    ]);
+
+    expect((new User)->can('go fish'))->toBeTrue();
+});
+
+it('registers temporary permissions as gates', function () {
     $user = new User;
 
     expect($user->can('go fish'))->toBeFalse();
