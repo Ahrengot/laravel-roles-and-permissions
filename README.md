@@ -63,10 +63,8 @@ The config file contains an example of defining various permissions for each use
 return [
     'roles' => [
         UserRole::Admin->value => [
-            'permissions' => [
-                Permission::AccessAdminPanel,
-                Permission::CreateApiTokens,
-            ],
+            Permission::AccessAdminPanel,
+            Permission::CreateApiTokens,
         ],
     ],
 ];
