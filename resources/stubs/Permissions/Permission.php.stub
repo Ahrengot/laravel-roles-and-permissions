@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Permissions;
+
+class Permission
+{
+    public const AccessAdminPanel = 'admin_panel.access';
+
+    public const CreateApiTokens = 'api_tokens.create';
+}
