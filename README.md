@@ -5,55 +5,101 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/ahrengot/laravel-roles-and-permissions/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/ahrengot/laravel-roles-and-permissions/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/ahrengot/laravel-roles-and-permissions.svg?style=flat-square)](https://packagist.org/packages/ahrengot/laravel-roles-and-permissions)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-roles-and-permissions.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-roles-and-permissions)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Roles and permissions for laravel
 
 ## Installation
 
-You can install the package via composer:
+Install the package via composer
 
 ```bash
 composer require ahrengot/laravel-roles-and-permissions
 ```
 
-You can publish and run the migrations with:
+Run the install command to publish the migration, stubs, config file and a basic test
 
 ```bash
-php artisan vendor:publish --tag="laravel-roles-and-permissions-migrations"
+php artisan roles-and-permissions:install
+```
+
+Run the migration to add a `role` column to your users table. Feel free to modify this migration as needed.
+
+```bash
 php artisan migrate
 ```
 
-You can publish the config file with:
+## Configuring your User model
 
-```bash
-php artisan vendor:publish --tag="laravel-roles-and-permissions-config"
+Add the `HasPermissions` trait to your user model and an enum cast for the role column. Optionally you can add a default value for the role using the built-in `$attributes` property.
+```php
+use \Ahrengot\RolesAndPermissions\Traits\HasPermissions;
+use App\Enums\UserRole;
+
+class User extends Authenticatable
+{
+    use HasPermissions;
+    
+    protected $casts = [
+        'role' => UserRole::class,
+    ];
+    
+    // Optional default role
+    protected $attributes = [
+        'role' => UserRole::User,
+    ]
+}
 ```
 
-This is the contents of the published config file:
+## Configuring roles and permissions
+
+Your permissions are configured in `config/permissions.php`. 
+
+User roles are defined in `App\Enums\UserRole.php`. Update these roles to fit your application needs.
+
+Permissions are just simple strings, but this package provides a helper class in `App/Permissions/Permission.php` that declare each permission as a constant. This provides better editor support and helps prevent typos.
+
+The config file contains an example of defining various permissions for each user role:
 
 ```php
 return [
+    'roles' => [
+        UserRole::Admin->value => [
+            'permissions' => [
+                Permission::AccessAdminPanel,
+                Permission::CreateApiTokens,
+            ],
+        ],
+    ],
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-roles-and-permissions-views"
 ```
 
 ## Usage
 
+In blade
+```html
+<nav>
+    @can(Permission::AccessAdminPanel)
+        <a href="...">Admin panel</a>
+    @endcan
+    <a href="...">Other link</a>
+</nav>
+```
+
+In policies
 ```php
-$rolesAndPermissions = new Ahrengot\RolesAndPermissions();
-echo $rolesAndPermissions->echoPhrase('Hello, Ahrengot!');
+public function create(User $user)
+{
+    return $user->can(Permission::CreatePosts);
+}
+```
+
+## Comparing user roles
+
+The UserRole enum has two simple comparison methods
+
+```php
+    $user->role->is(UserRole::Admin);
+    
+    $user->role->isNot(UserRole::Admin);
 ```
 
 ## Testing
