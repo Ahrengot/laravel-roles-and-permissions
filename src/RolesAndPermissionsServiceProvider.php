@@ -33,7 +33,7 @@ class RolesAndPermissionsServiceProvider extends PackageServiceProvider
                     ->endWith(function (InstallCommand $command) {
 
                         $command->newLine();
-                        $command->info('Remember to update your User model with the provided HasPermissions trait and an enum cast for the role column.');
+                        $command->info('See https://github.com/Ahrengot/laravel-roles-and-permissions#configuring-your-user-model for configuration details');
                     });
             });
     }
