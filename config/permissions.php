@@ -15,15 +15,11 @@ return [
     */
     'roles' => [
         /*UserRole::Admin->value => [
-            'permissions' => [
-                Permission::AccessAdminPanel,
-                Permission::CreateApiTokens,
-            ],
+            Permission::AccessAdminPanel,
+            Permission::CreateApiTokens,
         ],
         UserRole::User->value => [
-            'permissions' => [
-                Permission::CreateApiTokens,
-            ],
+            Permission::CreateApiTokens,
         ],*/
     ],
 ];

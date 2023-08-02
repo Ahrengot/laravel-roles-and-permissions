@@ -2,6 +2,7 @@
 
 namespace Ahrengot\RolesAndPermissions\Traits;
 
+use Ahrengot\RolesAndPermissions\Exceptions\UndefinedPermissionsException;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait HasPermissions
@@ -10,17 +11,23 @@ trait HasPermissions
 
     /**
      * Returns the permissions for this model
+     *
+     * @throws UndefinedPermissionsException
      */
     protected function permissionsConfig(): array
     {
-        return config('permissions.roles')[$this->role->value]['permissions'];
+        if (! config()->has('permissions.roles.'.$this->role->value)) {
+            throw new UndefinedPermissionsException($this->role->value);
+        }
+
+        return config('permissions.roles')[$this->role->value];
     }
 
     public function permissions(): Attribute
     {
         return Attribute::get(
             fn () => collect($this->temporaryPermissions)->merge($this->permissionsConfig())
-        );
+        )->withoutObjectCaching();
     }
 
     /**
