@@ -1,8 +1,8 @@
 # User roles and permissions for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ahrengot/laravel-roles-and-permissions.svg?style=flat-square)](https://packagist.org/packages/ahrengot/laravel-roles-and-permissions)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/ahrengot/laravel-roles-and-permissions/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/ahrengot/laravel-roles-and-permissions/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/ahrengot/laravel-roles-and-permissions/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/ahrengot/laravel-roles-and-permissions/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/Ahrengot/laravel-roles-and-permissions/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/Ahrengot/laravel-roles-and-permissions/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/Ahrengot/laravel-roles-and-permissions/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/Ahrengot/laravel-roles-and-permissions/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/ahrengot/laravel-roles-and-permissions.svg?style=flat-square)](https://packagist.org/packages/ahrengot/laravel-roles-and-permissions)
 
 Roles and permissions for laravel
@@ -92,7 +92,7 @@ public function create(User $user)
 
 ## Comparing user roles
 
-The UserRole enum has two simple comparison methods
+The UserRole enum has two comparison methods
 
 ```php
     $user->role->is(UserRole::Admin);
@@ -120,7 +120,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Jens Ahrengot Boddum](https://github.com/ahrengot)
+- [Jens Ahrengot Boddum](https://github.com/Ahrengot)
 - [All Contributors](../../contributors)
 
 ## License
