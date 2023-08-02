@@ -13,7 +13,7 @@ trait HasPermissions
      */
     protected function permissionsConfig(): array
     {
-        return config('user-permissions.roles')[$this->role->value]['permissions'];
+        return config('permissions.roles')[$this->role->value]['permissions'];
     }
 
     public function permissions(): Attribute
