@@ -4,6 +4,16 @@ use App\Enums\UserRole;
 use App\Models\User;
 use App\Permissions\Permission;
 
+/*
+|--------------------------------------------------------------------------
+| Example test
+|--------------------------------------------------------------------------
+|
+| This example test demonstrates how to authorize against permissions.
+| Open config/permissions.php to define your roles and permissions
+|
+*/
+
 it('guards access to the admin panel', function (UserRole $role, bool $expectation) {
     $user = new User(['role' => $role]);
 
