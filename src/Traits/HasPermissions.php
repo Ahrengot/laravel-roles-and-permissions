@@ -18,7 +18,7 @@ trait HasPermissions
      */
     protected function permissionsConfig(): array
     {
-        if (! isset($this->role?->value)) {
+        if (empty($this->role?->value)) {
             throw new MissingRoleEnumException(self::class);
         }
 
