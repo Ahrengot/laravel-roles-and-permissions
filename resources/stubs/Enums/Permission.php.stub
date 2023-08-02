@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahrengot\RolesAndPermissions\Enums;
+namespace App\Enums;
 
 use Ahrengot\RolesAndPermissions\Contracts\Describable;
 
