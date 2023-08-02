@@ -2,6 +2,7 @@
 
 namespace Ahrengot\RolesAndPermissions;
 
+use Ahrengot\RolesAndPermissions\Exceptions\MissingUserPermissionsException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Gate;
@@ -61,9 +62,13 @@ class RolesAndPermissionsServiceProvider extends PackageServiceProvider
         ], $command->getOutput());
     }
 
-    private function registerGates()
+    private function registerGates(): void
     {
         Gate::before(function (Authenticatable $authenticatable, mixed $permission) {
+            if (! isset($authenticatable->permissions)) {
+                throw new MissingUserPermissionsException();
+            }
+
             if ($authenticatable->permissions->contains($permission)) {
                 return true;
             }
