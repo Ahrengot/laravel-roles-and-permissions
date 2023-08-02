@@ -2,7 +2,7 @@
 
 namespace Ahrengot\RolesAndPermissions\Exceptions;
 
-class UndefinedPermissionsException extends \Exception
+class MissingPermissionsConfigException extends \Exception
 {
     public function __construct(string $userRole)
     {

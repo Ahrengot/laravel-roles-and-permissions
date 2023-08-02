@@ -2,7 +2,7 @@
 
 namespace Ahrengot\RolesAndPermissions\Traits;
 
-use Ahrengot\RolesAndPermissions\Exceptions\UndefinedPermissionsException;
+use Ahrengot\RolesAndPermissions\Exceptions\MissingPermissionsConfigException;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait HasPermissions
@@ -12,12 +12,12 @@ trait HasPermissions
     /**
      * Returns the permissions for this model
      *
-     * @throws UndefinedPermissionsException
+     * @throws MissingPermissionsConfigException
      */
     protected function permissionsConfig(): array
     {
         if (! config()->has('permissions.roles.'.$this->role->value)) {
-            throw new UndefinedPermissionsException($this->role->value);
+            throw new MissingPermissionsConfigException($this->role->value);
         }
 
         return config('permissions.roles')[$this->role->value];
