@@ -1,0 +1,16 @@
+<?php
+
+use App\Enums\Permission;
+use App\Enums\UserRole;
+use App\Models\User;
+
+it('guards access to the admin panel', function (string $role, bool $expectation) {
+    $user = new User(['role' => $role]);
+
+    expect(
+        $user->can(Permission::AccessAdminPanel->name)
+    )->toBe($expectation);
+})->with([
+    [UserRole::Admin->value, true],
+    [UserRole::User->value, false],
+]);

@@ -22,14 +22,15 @@ class RolesAndPermissionsServiceProvider extends PackageServiceProvider
             ->hasMigration('add_role_to_users')
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    ->startWith(
-                        fn () => $this->publishEnums($command)
-                    )
                     ->publishConfigFile()
                     ->publishMigrations()
-                    ->endWith(
-                        fn (InstallCommand $command) => $command->info('Package installed. Remember to update your User model with the provided HasPermissions trait and an enum cast for the role column.')
-                    );
+                    ->endWith(function (InstallCommand $command) {
+                        $this->publishEnums($command);
+                        $this->publishTests($command);
+
+                        $command->newLine(2);
+                        $command->info('Remember to update your User model with the provided HasPermissions trait and an enum cast for the role column.');
+                    });
             });
     }
 
@@ -39,12 +40,23 @@ class RolesAndPermissionsServiceProvider extends PackageServiceProvider
             $this->package->basePath('../resources/stubs/Enums/UserRole.php.stub') => base_path('app/Enums/UserRole.php'),
             $this->package->basePath('../resources/stubs/Enums/Permission.php.stub') => base_path('app/Enums/Permission.php'),
         ], "{$this->package->shortName()}-enums");
+
+        $this->publishes([
+            $this->package->basePath('../resources/stubs/Tests/Feature/Permissions/UserPermissionsTest.php.stub') => base_path('tests/Feature/Permissions/UserPermissionsTest.php'),
+        ], "{$this->package->shortName()}-tests");
     }
 
     public function publishEnums(InstallCommand $command): void
     {
         Artisan::call('vendor:publish', [
             '--tag' => "{$this->package->shortName()}-enums",
+        ], $command->getOutput());
+    }
+
+    public function publishTests(InstallCommand $command): void
+    {
+        Artisan::call('vendor:publish', [
+            '--tag' => "{$this->package->shortName()}-tests",
         ], $command->getOutput());
     }
 }
