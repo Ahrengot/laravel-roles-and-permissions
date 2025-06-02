@@ -4,6 +4,15 @@ on:
   release:
     types: [released]
 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to insert (e.g. v1.2.3)'
+        required: true
+      notes:
+        description: 'Release notes'
+        required: true
+
 permissions:
   contents: write
 
@@ -12,20 +21,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout code on main branch
         uses: actions/checkout@v3
         with:
           ref: main
 
+      - name: Set changelog variables from release event
+        if: github.event_name == 'release'
+        run: |
+          echo "LATEST_VERSION=${{ github.ref_name }}" >> "$GITHUB_ENV"
+          echo "RELEASE_NOTES=${{ github.event.release.body }}" >> "$GITHUB_ENV"
+
+      - name: Set changelog variables from manual dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "LATEST_VERSION=${{ github.event.inputs.version }}" >> "$GITHUB_ENV"
+          echo "RELEASE_NOTES=${{ github.event.inputs.notes }}" >> "$GITHUB_ENV"
+
       - name: Update Changelog
         uses: stefanzweifel/changelog-updater-action@v1
         with:
-          latest-version: ${{ github.event.release.name }}
-          release-notes: ${{ github.event.release.body }}
+          latest-version: ${{ env.LATEST_VERSION }}
+          release-notes: ${{ env.RELEASE_NOTES }}
 
       - name: Commit updated CHANGELOG
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: main
           commit_message: Update CHANGELOG
           file_pattern: CHANGELOG.md
+          commit_user_name: GitHub Actions
+          commit_user_email: actions@github.com
