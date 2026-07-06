@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-roles-and-permissions` will be documented in this file.
 
+## 3.0.0 - 2026-07-06
+
+Add support for Laravel 13 and drop support for Laravel 11
+
 ## v2.0.0 - 2025-06-02
 
 Add support for Laravel 12 and drop support for Laravel 10
